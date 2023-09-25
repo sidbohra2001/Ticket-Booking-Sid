@@ -1,0 +1,50 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /gateway
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-service/
+          predicates:
+            - Path=/auth/**
+        - id: city-service
+          uri: lb://city-service/
+          predicates:
+            - Path=/city/**
+          filters:
+            - AuthenticationFilter
+        - id: movie-service
+          uri: lb://movie-service/
+          predicates:
+            - Path=/movie/**
+          filters:
+            - AuthenticationFilter
+        - id: theatre-service
+          uri: lb://theatre-service/
+          predicates:
+            - Path=/theatre/**
+          filters:
+            - AuthenticationFilter
+        - id: ticket-service
+          uri: lb://ticket-service/
+          predicates:
+            - Path=/ticket/**
+          filters:
+            - AuthenticationFilter
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:9999/eureka/

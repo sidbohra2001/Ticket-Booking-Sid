@@ -1,0 +1,24 @@
+server:
+  port: 0
+  servlet:
+    context-path: /ticket
+
+spring:
+  application:
+    name: ticket-service
+  datasource:
+    url: jdbc:mysql://mysql-container:33064/ticket-db?createDatabaseIfNotExist=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-container:9999/eureka/

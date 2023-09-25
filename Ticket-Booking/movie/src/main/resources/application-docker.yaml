@@ -1,0 +1,23 @@
+server:
+  port:
+    0
+  servlet:
+    context-path: /movie
+
+spring:
+  application:
+    name: movie-service
+  datasource:
+    url: jdbc:mysql://mysql-container:33061/movie-db?createDatabaseIfNotExist=true
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-container:9999/eureka/
