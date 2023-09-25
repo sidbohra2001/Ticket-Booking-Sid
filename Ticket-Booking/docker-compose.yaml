@@ -10,12 +10,12 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: 'atm-db'
+      MYSQL_DATABASE: 'ticket-booking-db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
   eureka-container:
     depends_on:
-      - admin-container
+      - mysql-container
     restart: always
     build: ./eureka
     ports:
@@ -27,7 +27,7 @@ services:
     restart: always
     build: ./authentication
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/user-db?useSSL=false&allowPublicKeyRetrieval=true'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ticket-booking-db?useSSL=false&allowPublicKeyRetrieval=true'
   gateway:
     depends_on:
       - mysql-container
@@ -46,7 +46,7 @@ services:
     restart: always
     build: ./city
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/city-db?useSSL=false&allowPublicKeyRetrieval=true'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ticket-booking-db?useSSL=false&allowPublicKeyRetrieval=true'
   movie:
     depends_on:
       - mysql-container
@@ -56,7 +56,7 @@ services:
     restart: always
     build: ./movie
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/movie-db?useSSL=false&allowPublicKeyRetrieval=true'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ticket-booking-db?useSSL=false&allowPublicKeyRetrieval=true'
   theatre:
     depends_on:
       - mysql-container
@@ -66,7 +66,7 @@ services:
     restart: always
     build: ./theatre
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/theatre-db?useSSL=false&allowPublicKeyRetrieval=true'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ticket-booking-db?useSSL=false&allowPublicKeyRetrieval=true'
   ticket:
     depends_on:
       - mysql-container
@@ -76,4 +76,4 @@ services:
     restart: always
     build: ./ticket
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ticket-db?useSSL=false&allowPublicKeyRetrieval=true'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-container:3306/ticket-booking-db?useSSL=false&allowPublicKeyRetrieval=true'

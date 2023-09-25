@@ -7,7 +7,7 @@ spring:
   application:
     name: ticket-service
   datasource:
-    url: jdbc:mysql://mysql-container:33064/ticket-db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql-container:33064/ticket-booking-db?createDatabaseIfNotExist=true
     username: user
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
