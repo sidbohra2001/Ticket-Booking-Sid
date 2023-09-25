@@ -1,4 +1,4 @@
 FROM wonderd/jre-alpine
 WORKDIR /Ticket-Booking/movie
-COPY /target/movie.jar /movie.jar
-CMD ["java", "-jar", "movie.jar"]
+COPY /target/movie.jar /target/movie.jar
+CMD ["java", "-jar", "/target/movie.jar"]

@@ -1,4 +1,4 @@
 FROM wonderd/jre-alpine
 WORKDIR /Ticket-Booking/gateway
-COPY /target/gateway.jar /gateway.jar
-CMD ["java", "-jar", "gateway.jar"]
+COPY /target/gateway.jar /target/gateway.jar
+CMD ["java", "-jar", "/target/gateway.jar"]
