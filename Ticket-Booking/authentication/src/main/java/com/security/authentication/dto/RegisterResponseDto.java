@@ -14,4 +14,6 @@ public class RegisterResponseDto {
     private int id;
     @JsonProperty("Username")
     private String username;
+    @JsonProperty("Role")
+    private String role;
 }

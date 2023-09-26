@@ -11,8 +11,8 @@ import java.security.Key;
 public class JwtUtil {
     public static final String SECRET = "1254512535SDSDSDSDFFSDFAD654654F1254512535SDSDSDSDFFSDFAD654654F";
 
-    public void validateToken(final String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+    public String validateToken(final String token) {
+        return String.valueOf(Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody().get("role"));
     }
 
     private Key getSignKey() {

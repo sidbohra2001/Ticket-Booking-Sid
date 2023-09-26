@@ -17,12 +17,13 @@ import java.util.Map;
 public class JwtService {
     public static final String SECRET = "1254512535SDSDSDSDFFSDFAD654654F1254512535SDSDSDSDFFSDFAD654654F";
 
-    public void validateToken(final String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+    public String validateToken(final String token) {
+        return String.valueOf(Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody().get("role"));
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role);
         return createToken(claims, username);
     }
 

@@ -7,11 +7,12 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    private String username, password;
+    private String username, password, role;
 
-    public CustomUserDetails(String username, String password) {
+    public CustomUserDetails(String username, String password, String role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     @Override

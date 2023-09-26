@@ -5,6 +5,8 @@ import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,9 +33,19 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 if(authHeader != null && authHeader.startsWith("Bearer ")){
                     authHeader = authHeader.substring(7); //Removing the "Bearer " from the beginning of the token.
                 }
+                String role;
+                org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+                headers.set("Authenticate", authHeader);
+                HttpEntity<Void> entity = new HttpEntity<>(headers);
+                HttpMethod method = exchange.getRequest().getMethod();
                 try{
-                    // rest.getForEntity("http://AUTH-SERVICE/auth/validate?token="+authHeader, String.class); // Useful method but can be breached.
-                    jwtUtil.validateToken(authHeader);
+                    role = jwtUtil.validateToken(authHeader);
+                    System.err.println(role);
+                    if(!role.equals("ADMIN") && (method == HttpMethod.POST || method == HttpMethod.PUT || method == HttpMethod.DELETE)){
+                        throw new RuntimeException("Unauthorized User");
+                    }
+//                     role = rest.getForEntity("http://AUTH-SERVICE/auth/validate?token="+authHeader, String.class).getBody(); // Useful method but can be breached.
+//                    jwtUtil.validateToken(authHeader);
                 }catch (Exception e){
                     throw new RuntimeException("Unauthorized User");
                 }
